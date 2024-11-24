@@ -1,0 +1,76 @@
+import torch
+
+from model import NNModel
+from dataloader import DFMaker, DataSplitter
+from requesthandler import RequestHandler
+from recommender import Recommender
+
+client_id = "1"
+
+def load_global() -> list:
+    locality = "global"
+    
+    requesthandler = RequestHandler(client_id)
+    resp = requesthandler.retrieveModelUpdates(locality)
+    # resp = []
+    return resp
+    
+if __name__ == "__main__":
+    # initialize paths to dataset
+    interaction_path = f"dataset/interaction_split_{client_id}.csv"
+    user_path = f"dataset/user_split_{client_id}.csv"
+    video_path = "dataset/video.csv"
+    bigfive_path = f"dataset/bigfive_split_{client_id}.csv"
+    tagmap_path = "dataset/tag_map.csv"
+    
+    data = DFMaker(client_id)
+    
+    data.load_data(interaction_path, user_path, video_path, bigfive_path, tagmap_path)
+    
+    # create dataframe
+    X, y_like = data.process_train_data()
+    
+    # create train test split and load data onto data loader
+    datasplit = DataSplitter(X, y_like, mode=1)
+
+    batch_size = 64
+    full_loader = datasplit.create_data_loader(batch_size)
+
+    # Initialize model, loss function, and optimizer
+    input_dim = X.shape[1]
+    criterion_like = torch.nn.BCELoss()
+    optimizer_class = torch.optim.Adam
+    optimizer_params = {'lr': 0.01}
+    
+    model = NNModel(input_dim, criterion_like, optimizer_class, optimizer_params, client_id)
+    
+    global_list = load_global()
+    g_state_dict = [global_list[-1] if global_list else None][0]
+    if g_state_dict:
+        l_update = torch.load(f"local_update_{client_id}_enc.pth")
+    else:
+        l_update = torch.load(f"local_update_{client_id}.pth")
+    l_state_dict = l_update['state_dict']
+    
+    model.updateModel(l_state_dict, g_state_dict)
+    
+    test_loss, test_accuracy = model.evaluate(full_loader)
+    print("\nFinal Model Metrics:")
+    print(f"Test Loss: {test_loss:.4f}, Test Accuracy: {test_accuracy:.4f}")
+    
+    print("\n--RECOMMENDATIONS--\n")
+    #END USER
+    user_id = int(input("Enter User ID: "))
+    #user_id = 30
+    input_tag = input("Enter Input Tag: ")
+    #input_tag = "Comedy"
+    
+    recommender = Recommender(client_id, data)
+    
+    top_10_recommendations = recommender.get_top_recommendations(user_id, input_tag, model.model)
+    if isinstance(top_10_recommendations, str):
+        print(top_10_recommendations)
+    else:
+        print(f'Top 10 Recommendations for Videos on "{input_tag}" for User with id {user_id} : ')  
+        print(top_10_recommendations)
+        top_10_recommendations.to_csv("recommendations.csv")

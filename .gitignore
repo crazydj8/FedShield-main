@@ -1,0 +1,16 @@
+__pycache__
+vendor
+notes
+*.pth
+recommendations.csv
+.env
+tenseal_context
+*Zone.Identifier
+calibration.json
+input.json
+network.compiled
+network.onnx
+settings.json
+test.pk
+test.vk
+witness.json

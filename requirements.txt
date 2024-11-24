@@ -1,0 +1,12 @@
+torch
+torchvision
+torchaudio
+scikit-learn
+pandas
+numpy
+requests
+fuzzywuzzy
+python-Levenshtein
+tenseal
+ezkl
+onnx
