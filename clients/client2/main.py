@@ -64,9 +64,7 @@ if __name__ == "__main__":
     #user_id = 2071
     input_tag = input("Enter Input Tag: ")
     #input_tag = "Donnie Yen"
-    
-    print(f'Top 10 Recommendations for Videos on "{input_tag}" for User with id {user_id} : ')  
-    
+      
     recommender = Recommender(client_id, data)
     
     top_10_recommendations = recommender.get_top_recommendations(user_id, input_tag, model.model)
