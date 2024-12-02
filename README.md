@@ -3,7 +3,7 @@
 ## Dependencies:
 
 * Python >3.8
-* Python Torch, scikit-learn, pandas, numpy, requests, fuzzywuzzy, python-Levenshtein, tenseal, ezkl, onnx modules-
+* Python Torch, scikit-learn, pandas, numpy, requests, tenseal, ezkl, onnx, sentence-transformers modules.
 
     can be installed by runnning:
 
