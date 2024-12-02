@@ -46,13 +46,16 @@ class Recommender():
         #we generate the tag similairty
         self.__get_similarity_score(input_tag)
         
+        # Drop rows where 'like_prob' is below 0.5
+        self.__predictions = self.__predictions[self.__predictions['like_prob'] >= 0.5]
+        
         # Sort by tag similarity and then by like probability
         top_recommendations = self.__predictions.sort_values(by=['tag_similarity', 'like_prob'], ascending=[False, False]).head(N)
 
+        if top_recommendations.empty:
+            return f"No video found on {input_tag} for user {user_id}"
+        
         if top_recommendations.iloc[0]['tag_similarity'] < 0.5:
             return "Input tag does not match"
-
-        if top_recommendations.iloc[0]['like_prob'] < 0.5:
-            return f"No video found on {input_tag} for user {user_id}"
         
         return top_recommendations
