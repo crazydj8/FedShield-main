@@ -1,4 +1,4 @@
-# model/videorecommendationmodel.py
+# model/nnmodel.py
 
 from .models import VideoRecommendationModel
 from .modeltrainer import ModelTrainer
