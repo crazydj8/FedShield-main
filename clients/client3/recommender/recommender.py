@@ -1,20 +1,19 @@
+# recommender/recommender.py
 import pandas as pd
 import numpy as np
 import torch
 
-from fuzzywuzzy import fuzz
-
-from dataloader import DFMaker
-from model.models import VideoRecommendationModel
+from .nlpcontextmaker import NlpContextMaker
 
 class Recommender():
-    def __init__(self, client_id: str, dataframes: DFMaker):
+    def __init__(self, client_id, dataframes):
         self.__client_id = int(client_id)
         self.__dataframes = dataframes
-
-        np.random.seed(self.__client_id)
+        self.__contextmaker = NlpContextMaker()
         
-    def __get_prediction(self, user_id: int, model: VideoRecommendationModel) -> None:
+        np.random.seed(self.__client_id)
+                
+    def __get_prediction(self, user_id, model):
         X, all_videos = self.__dataframes.process_eval_data(user_id)
         if X is not None:
             # Get predictions
@@ -33,26 +32,26 @@ class Recommender():
             })
         else:
             self.__predictions = "User not found"
+
+    def __get_similarity_score(self, input_tag):
+        self.__predictions['tag_similarity'] = self.__predictions['tags'].apply(lambda tags: self.__contextmaker.calculate_tag_similarity(input_tag, tags))
+
         
-    def get_top_recommendations(self, user_id: int, input_tag: str, model: VideoRecommendationModel, N: int = 10) -> str | pd.DataFrame:
+    def get_top_recommendations(self, user_id, input_tag, model, N=10):
+        # we generate the like predicitons
         self.__get_prediction(user_id, model)
         if isinstance(self.__predictions, str):
             return self.__predictions
-
-        tag_id_to_name = dict(zip(self.__dataframes.tag_map['tag_id'], self.__dataframes.tag_map['tag_content']))
         
-        def calculate_tag_similarity(tags: list) -> float:
-            tag_names = [tag_id_to_name.get(int(tag_id), "") for tag_id in eval(tags)]
-            return max([fuzz.ratio(input_tag.lower(), tag_name.lower()) for tag_name in tag_names if tag_name])
+        #we generate the tag similairty
+        self.__get_similarity_score(input_tag)
         
-        self.__predictions['tag_similarity'] = self.__predictions['tags'].apply(lambda tags: calculate_tag_similarity(tags))
-
         # Sort by tag similarity and then by like probability
         top_recommendations = self.__predictions.sort_values(by=['tag_similarity', 'like_prob'], ascending=[False, False]).head(N)
-        
-        if top_recommendations.iloc[0]['tag_similarity'] < 50:
+
+        if top_recommendations.iloc[0]['tag_similarity'] < 0.5:
             return "Input tag does not match"
-        
+
         if top_recommendations.iloc[0]['like_prob'] < 0.5:
             return f"No video found on {input_tag} for user {user_id}"
         
