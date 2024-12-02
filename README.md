@@ -5,7 +5,7 @@
 * Python >3.8
 * Python Torch, scikit-learn, pandas, numpy, requests, tenseal, ezkl, onnx, sentence-transformers modules.
 
-    can be installed by runnning:
+    can be installed by running:
 
     ```pip install -r requirements.txt```
 * Docker (Any latest version)
