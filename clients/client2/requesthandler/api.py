@@ -6,7 +6,7 @@ class Api():
     def __init__(self, ip: str):
         self.__ip = ip
 
-    def send_post_request(self, model_update: dict[str, any], locality: str):
+    def send_post_request(self, model_update: dict[str, any], locality: str) -> str:
         url = self.__ip + "/verify"
         
         params = {
