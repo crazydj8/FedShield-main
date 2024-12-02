@@ -5,7 +5,7 @@ notes
 recommendations.csv
 .env
 tenseal_context
-*Zone.Identifier
+*:Zone.Identifier
 calibration.json
 input.json
 network.compiled
