@@ -1,6 +1,7 @@
 import torch
 
 from model import NNModel
+from model.models import VideoRecommendationModel
 from dataloader import DFMaker, DataSplitter
 from requesthandler import RequestHandler
 from recommender import Recommender
@@ -14,7 +15,20 @@ def load_global() -> list:
     resp = requesthandler.retrieveModelUpdates(locality)
     # resp = []
     return resp
+
+def generate_recommendations(user_id: int, input_tag: str, model: VideoRecommendationModel, N: int, recommender: Recommender) -> None:
+    is_less_than_10, predictions_match, predictions_no_match = recommender.get_top_recommendations(user_id, input_tag, model, N)
     
+    print(f"Video recommendations on {input_tag} that user_id: {user_id} may like:")
+    print(predictions_match)
+    predictions_match.to_csv("tag_recommendations.csv")
+    
+    if is_less_than_10:    
+        print(f"Less than {N} recommendations found")
+        print(f"You may also like:")
+        print(predictions_no_match)
+        predictions_no_match.to_csv("no_tag_recommendations.csv")
+
 if __name__ == "__main__":
     # initialize paths to dataset
     interaction_path = f"dataset/interaction_split_{client_id}.csv"
@@ -61,16 +75,10 @@ if __name__ == "__main__":
     print("\n--RECOMMENDATIONS--\n")
     #END USER
     user_id = int(input("Enter User ID: "))
-    #user_id = 2071
+    #user_id = 30
     input_tag = input("Enter Input Tag: ")
-    #input_tag = "Donnie Yen"
-      
+    #input_tag = "Comedy"
+    
     recommender = Recommender(client_id, data)
     
-    top_10_recommendations = recommender.get_top_recommendations(user_id, input_tag, model.model)
-    if isinstance(top_10_recommendations, str):
-        print(top_10_recommendations)
-    else:
-        print(f'Top 10 Recommendations for Videos on "{input_tag}" for User with id {user_id} : ')  
-        print(top_10_recommendations)
-        top_10_recommendations.to_csv("recommendations.csv")
+    generate_recommendations(user_id, input_tag, model.model, 10, recommender)
