@@ -2,7 +2,7 @@ __pycache__
 vendor
 notes
 *.pth
-recommendations.csv
+*recommendations.csv
 .env
 tenseal_context
 *:Zone.Identifier
@@ -14,3 +14,4 @@ settings.json
 test.pk
 test.vk
 witness.json
+tag_similarity.json
