@@ -17,7 +17,11 @@ def load_global() -> list:
     return resp
 
 def generate_recommendations(user_id: int, input_tag: str, model: VideoRecommendationModel, N: int, recommender: Recommender) -> None:
-    is_less_than_10, predictions_match, predictions_no_match = recommender.get_top_recommendations(user_id, input_tag, model, N)
+    user_not_found, is_less_than_10, predictions_match, predictions_no_match = recommender.get_top_recommendations(user_id, input_tag, model, N)
+    
+    if user_not_found:
+        print(f"User ID {user_id} not found in database, Please try again.")
+        return
     
     print(f"Video recommendations on {input_tag} that user_id: {user_id} may like:")
     print(predictions_match)

@@ -45,9 +45,11 @@ class Recommender():
         
     def get_top_recommendations(self, user_id: int, input_tag: str, model: VideoRecommendationModel, N: int = 10) -> tuple[bool, pd.DataFrame, pd.DataFrame]:
         # we generate the like predicitons
+        user_not_found = False
         self.__get_prediction(user_id, model)
         if isinstance(self.__predictions, str):
-            return self.__predictions
+            user_not_found = True
+            return user_not_found, None, None, None
         
         #we generate the tag similairty
         self.__get_similarity_score(input_tag)
@@ -75,4 +77,4 @@ class Recommender():
             is_less_than_10 = True
             top_no_tag_recommendations = top_no_tag_recommendations.head(N - num_recommendation)
         
-        return is_less_than_10, top_tag_recommendations, top_no_tag_recommendations
+        return user_not_found, is_less_than_10, top_tag_recommendations, top_no_tag_recommendations
