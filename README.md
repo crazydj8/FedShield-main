@@ -2,10 +2,10 @@
 This repository contains the code and resources for the paper:  
 
 **FedShield: Privacy Preservation for Blockchain Enabled Federated Learning with Homomorphic Encryption and Zero-Knowledge Proof**  
-Authors: Pallavi Arora, Arya Tapikar, Akshat Aryan, V Amogh Manish & V Sarasvathi
-Published in: [Proceedings of 17th International Conference on Machine Learning and Computing](https://doi.org/10.1007/978-3-031-94898-5)
-DOI: [10.1007/978-3-031-94898-5_44](https://doi.org/10.1007/978-3-031-94898-5_44)  
-Springer Link: [Read the paper here](https://link.springer.com/chapter/10.1007/978-3-031-94898-5_44)  
+Authors: Pallavi Arora, Arya Tapikar, Akshat Aryan, V Amogh Manish & V Sarasvathi\
+Published in: [Proceedings of 17th International Conference on Machine Learning and Computing](https://doi.org/10.1007/978-3-031-94898-5)\
+DOI: [10.1007/978-3-031-94898-5_44](https://doi.org/10.1007/978-3-031-94898-5_44)\
+Springer Link: [Read the paper here](https://link.springer.com/chapter/10.1007/978-3-031-94898-5_44)\
 
 ---
 
