@@ -1,11 +1,8 @@
-# Repository for "FedShield: Privacy Preservation for Blockchain Enabled Federated Learning with Homomorphic Encryption and Zero-Knowledge Proof"  
-This repository contains the code and resources for the paper:  
-
-**FedShield: Privacy Preservation for Blockchain Enabled Federated Learning with Homomorphic Encryption and Zero-Knowledge Proof**  
-Authors: Pallavi Arora, Arya Tapikar, Akshat Aryan, V Amogh Manish & V Sarasvathi\
+# FedShield: Privacy Preservation for Blockchain Enabled Federated Learning with Homomorphic Encryption and Zero-Knowledge Proof  
+Authors: [Pallavi Arora](https://github.com/arorapallavi), [Arya Tapikar](https://github.com/aryatapikar), [Akshat Aryan](https://github.com/crazydj8), [Amogh Manish V](https://github.com/Drakonxd786) & Sarasvathi V\
 Published in: [Proceedings of 17th International Conference on Machine Learning and Computing](https://doi.org/10.1007/978-3-031-94898-5)\
 DOI: [10.1007/978-3-031-94898-5_44](https://doi.org/10.1007/978-3-031-94898-5_44)\
-Springer Link: [Read the paper here](https://link.springer.com/chapter/10.1007/978-3-031-94898-5_44)\
+Springer Link: [Read the paper here](https://link.springer.com/chapter/10.1007/978-3-031-94898-5_44)
 
 ---
 
@@ -17,10 +14,8 @@ The increasing reliance on datasets in machine learning raises concerns about us
 ## Dependencies:
 
 * Python >3.8
-* Python Torch, scikit-learn, pandas, numpy, requests, tenseal, ezkl, onnx, sentence-transformers modules.
-
-    can be installed by running:
-
+* Python Torch, scikit-learn, pandas, numpy, requests, tenseal, ezkl, onnx, sentence-transformers modules.\
+can be installed by running:\
     ```pip install -r requirements.txt```
 * Docker (Any latest version)
 * go (Any latest version)
@@ -38,9 +33,8 @@ The increasing reliance on datasets in machine learning raises concerns about us
     COUCHDB_PASSWORD = yourcouchdbpassword
     ```
 
-3) Place the above .env file in the directory:
-    
-    communicator
+3) Place the above .env file in the directory:\
+    ./communicator
 
 ## Steps to Run Project (to be done in order)
 1) First open 1 terminal window:
@@ -86,5 +80,5 @@ after initializing the fabric,
 
 
 ## Citation
-If you use this code, please cite our paper:
+If you use this code, please cite our paper:\
 ```Arora, P., Tapikar, A., Aryan, A., Manish, V.A., Sarasvathi, V. (2025). FedShield: Privacy Preservation for Blockchain Enabled Federated Learning with Homomorphic Encryption and Zero-Knowledge Proof. In: Huang, L., Greenhalgh, D. (eds) Proceedings of 17th International Conference on Machine Learning and Computing. ICMLC 2025. Lecture Notes in Networks and Systems, vol 1476. Springer, Cham. https://doi.org/10.1007/978-3-031-94898-5_44```
