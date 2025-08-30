@@ -75,7 +75,7 @@ can be installed by running:\
     ```
 
 after initializing the fabric, 
-* one can view the CouchDB interface on ```http://localhost/5984/_utils```
+* one can view the CouchDB interface on ```http://localhost:5984/_utils```
 * one can view the ledger by using **peer query** commands on the CLI
 
 
