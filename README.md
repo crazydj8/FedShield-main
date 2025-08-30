@@ -1,4 +1,18 @@
-# Hyperledger Fabric Implementation for Capstone
+# Repository for "FedShield: Privacy Preservation for Blockchain Enabled Federated Learning with Homomorphic Encryption and Zero-Knowledge Proof"  
+This repository contains the code and resources for the paper:  
+
+**FedShield: Privacy Preservation for Blockchain Enabled Federated Learning with Homomorphic Encryption and Zero-Knowledge Proof**  
+Authors: Pallavi Arora, Arya Tapikar, Akshat Aryan, V Amogh Manish & V Sarasvathi
+Published in: [Proceedings of 17th International Conference on Machine Learning and Computing](https://doi.org/10.1007/978-3-031-94898-5)
+DOI: [10.1007/978-3-031-94898-5_44](https://doi.org/10.1007/978-3-031-94898-5_44)  
+Springer Link: [Read the paper here](https://link.springer.com/chapter/10.1007/978-3-031-94898-5_44)  
+
+---
+
+## Abstract
+The increasing reliance on datasets in machine learning raises concerns about user privacy and data security. Federated Learning (FL) addresses this by client-side model training through contribution of model updates rather than raw data, enabling data ownership. Vulnerability of centralization risks, inference attacks and free-rider attacks persists necessitating the need for advanced security solutions. This paper proposes FedShield, a novel approach that integrates FL with Blockchain, Homomorphic Encryption (HE) and Zero-Knowledge Proof (ZKP). FedShield utilizes Blockchain for a transparent ledger, HE for computations on encrypted data eliminating need for decryption, and ZKP for verifying model updates while maintaining confidentiality. Clients train local models on their datasets, and encrypt the updates which are verified before storage. Encrypted local model updates are homomorphically averaged to generate an aggregated global model update, which boosts local model generalization and recommendation. FedShield achieves over 90% accuracy in a video recommender system while ensuring privacy preservation.
+
+![Diagram](img/diagram.png)
 
 ## Dependencies:
 
@@ -12,6 +26,7 @@
 * go (Any latest version)
 
 ## Setup steps:
+
 1) make the following file executable:
     ```
     $ chmod +x ./gen_HE_context.py
@@ -68,3 +83,8 @@
 after initializing the fabric, 
 * one can view the CouchDB interface on ```http://localhost/5984/_utils```
 * one can view the ledger by using **peer query** commands on the CLI
+
+
+## Citation
+If you use this code, please cite our paper:
+```Arora, P., Tapikar, A., Aryan, A., Manish, V.A., Sarasvathi, V. (2025). FedShield: Privacy Preservation for Blockchain Enabled Federated Learning with Homomorphic Encryption and Zero-Knowledge Proof. In: Huang, L., Greenhalgh, D. (eds) Proceedings of 17th International Conference on Machine Learning and Computing. ICMLC 2025. Lecture Notes in Networks and Systems, vol 1476. Springer, Cham. https://doi.org/10.1007/978-3-031-94898-5_44```
